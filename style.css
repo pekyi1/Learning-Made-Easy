@@ -536,6 +536,9 @@ h6 {
 }
 
 @media (max-width:768px) {
+    section {
+            padding: 10rem 3% 2rem;
+        }
     .header__logo h1 {
         display: none;
     }
