@@ -596,4 +596,7 @@ h6 {
         .back-to-home{
             right: 20px;
         }
+        .sidebar{
+            top: 90px;
+        }
 }
