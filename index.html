@@ -13,7 +13,7 @@
     <header class="header">
         <div class="header-left">
             <div class="header__menu-btn">
-               <img src="images/logo.png" alt="">
+                <img src="images/logo.png" alt="">
             </div>
             <a href="#" class="header__logo">
                 <h1>LearningMadeEasy</h1>
@@ -27,7 +27,7 @@
                     </path>
                 </svg>
             </span>
-            <input type="text" placeholder="Search for subjects or topics">
+            <input id="search-input" type="text" placeholder="Search for subjects or topics">
         </div>
         <div class="header-right">
             <i class='bx bx-phone-call'></i>
@@ -120,127 +120,103 @@
     <a href="#home" class="back-to-home"><i class='bx bx-up-arrow-alt'></i></a>
     <script src="script.js"></script>
     <script>
-        const topics = {
-            'Mathematics': ['Angles',
-                'Trigonometry',
-                'Sequence & Series',
-                'Circle Theorem',
-                'Sets',
-                'Surds',
-                'Relations & Functions',
-                'Mensuration',
-                'Logical Reasoning',
-                'Linear Equations & Inequalities',
-                'Indices & Logarithm',
-                'Plane Geometry',
-                'Bearings & Vectors',
-                'Permutation & Combination',
-                'Calculus',
-                'Modulo Arithmetic',
-                'Algebra',
-                'Probability & Statistics',
-                'Number Systems',
-                'Variation',
-                'Matrices'],
-            'Integrated Science': ['Digestive System',
-                'Food and Nutrition',
-                'Skeletal System',
-                'Energy Transformation',
-                'Magnetism',
-                'Weather and Climate',
-                'Forces and Motion',
-                'Acids, Bases and Salts',
-                'Measurements',
-                'Introduction to Integrated Science',
-                'Cell and Cell Division',
-                'Matter',
-                'Electrical Energy',
-                'Electronics',
-                'Solar Energy',
-                'Diffusion and Osmosis',
-                'Dentition in Humans',
-                'Reproduction and Growth in Plants',
-                'Atmosphere and Climate Change',
-                'Ecosystem',
-                'Infections and Diseases',
-                'Exploitation of Minerals',
-                'Rusting',
-                'Corrosion in Metals',
-                'Variation and Inheritance',
-                'Heat Energy',
-                'Light Energy',
-                'Organic and Inorganic Compounds',
-                'Crop Production',
-                'Life Cycle of Pests and Parasites',
-                'Endogenous Technology',
-                'Biodiversity',
-                'Work and Machines',
-                'Safety in the Community',
-                'Circulatory System',
-                'Hydrological Cycle',
-                'Soil Conservation',
-                'Water',
-                'Water Conservation',
-                'Air Movement',
-                'Nitrogen Cycle',
-                'Nuclear Energy'],
-            'Business Management': ['Corporate Governance',
-                'Human Resource Management',
-                'Leadership',
-                'Strategic Management',
-                'E-Commerce',
-                'Marketing',
-                'Pricing',
-                'Social Entrepreneurship',
-                'Sustainability',
-                'Sustainable Business Strategies',
-                'Advertising',
-                'Strategic Planning',
-                'Communication',
-                'Corporate Finance',
-                'Marketing and Consumer Behavior',
-                'Ethics and Social Responsibility',
-                'Innovation',
-                'Technology and Innovation',
-                'AI and Business Processes',
+       const topics = {
+            'Mathematics': [
+                'Angles', 'Trigonometry', 'Sequence & Series', 'Circle Theorem', 'Sets',
+                'Surds', 'Relations & Functions', 'Mensuration', 'Logical Reasoning',
+                'Linear Equations & Inequalities', 'Indices & Logarithm', 'Plane Geometry',
+                'Bearings & Vectors', 'Permutation & Combination', 'Calculus',
+                'Modulo Arithmetic', 'Algebra', 'Probability & Statistics', 'Number Systems',
+                'Variation', 'Matrices'
+            ],
+            'Integrated Science': [
+                'Digestive System', 'Food and Nutrition', 'Skeletal System',
+                'Energy Transformation', 'Magnetism', 'Weather and Climate',
+                'Forces and Motion', 'Acids, Bases and Salts', 'Measurements',
+                'Introduction to Integrated Science', 'Cell and Cell Division', 'Matter',
+                'Electrical Energy', 'Electronics', 'Solar Energy', 'Diffusion and Osmosis',
+                'Dentition in Humans', 'Reproduction and Growth in Plants',
+                'Atmosphere and Climate Change', 'Ecosystem', 'Infections and Diseases',
+                'Exploitation of Minerals', 'Rusting', 'Corrosion in Metals',
+                'Variation and Inheritance', 'Heat Energy', 'Light Energy',
+                'Organic and Inorganic Compounds', 'Crop Production',
+                'Life Cycle of Pests and Parasites', 'Endogenous Technology',
+                'Biodiversity', 'Work and Machines', 'Safety in the Community',
+                'Circulatory System', 'Hydrological Cycle', 'Soil Conservation',
+                'Water', 'Water Conservation', 'Air Movement', 'Nitrogen Cycle',
+                'Nuclear Energy'
+            ],
+            'Business Management': [
+                'Corporate Governance', 'Human Resource Management', 'Leadership',
+                'Strategic Management', 'E-Commerce', 'Marketing', 'Pricing',
+                'Social Entrepreneurship', 'Sustainability', 'Sustainable Business Strategies',
+                'Advertising', 'Strategic Planning', 'Communication', 'Corporate Finance',
+                'Marketing and Consumer Behavior', 'Ethics and Social Responsibility',
+                'Innovation', 'Technology and Innovation', 'AI and Business Processes',
                 'Corporate Social Responsibility'
             ],
-            'General Agric': ['Agricultural Engineering',
-                'Sustainable Agriculture',
-                'Agricultural Extension',
-                'Horticulture',
-                'Agricultural Economics',
-                'Agricultural Law',
-                'Animal Science',
-                'Farm Business Management',
-                'Social Science',
-                'Crop Production',
-                'Animal Production',
-                'Introduction to Animal Mechanisation',
-                'Farm Power']
+            'General Agric': [
+                'Agricultural Engineering', 'Sustainable Agriculture', 'Agricultural Extension',
+                'Horticulture', 'Agricultural Economics', 'Agricultural Law', 'Animal Science',
+                'Farm Business Management', 'Social Science', 'Crop Production',
+                'Animal Production', 'Introduction to Animal Mechanisation', 'Farm Power'
+            ]
         };
 
-        function toggleSidebar(subject = null) {
+        function toggleSidebar(subject = null, matchedTopics = []) {
             const sidebar = document.getElementById('sidebar');
             const sidebarTitle = document.getElementById('sidebar-title');
             const sidebarTopics = document.getElementById('sidebar-topics');
 
             if (subject) {
                 sidebarTitle.textContent = `Topics in ${subject}`;
-                sidebarTopics.innerHTML = topics[subject]
+                const topicsToDisplay = matchedTopics.length > 0 ? matchedTopics : topics[subject];
+                sidebarTopics.innerHTML = topicsToDisplay
                     .map(topic => `<li><a href="summary.html?topic=${encodeURIComponent(topic)}">${topic}</a></li>`)
                     .join('');
+                sidebar.classList.add('show');
+            } else {
+                sidebar.classList.remove('show');
+            }
+        }
+
+        document.getElementById('search-input').addEventListener('input', function (event) {
+            const query = event.target.value.toLowerCase().trim();
+            let foundSubject = null;
+            let matchedTopics = [];
+
+            if (query) {
+                for (const [subject, subjectTopics] of Object.entries(topics)) {
+                    if (subject.toLowerCase().includes(query)) {
+                        // If subject name matches, display all topics under that subject
+                        foundSubject = subject;
+                        matchedTopics = [];
+                        break;
+                    } else {
+                        // Check for topic matches within this subject
+                        matchedTopics = subjectTopics.filter(topic => topic.toLowerCase().includes(query));
+                        if (matchedTopics.length > 0) {
+                            foundSubject = subject;
+                            break;
+                        }
+                    }
+                }
             }
 
-            sidebar.classList.toggle('show');
-        }
+            if (foundSubject) {
+                toggleSidebar(foundSubject, matchedTopics);
+            } else {
+                toggleSidebar();
+            }
+        });
 
         document.addEventListener('click', function (event) {
             const sidebar = document.getElementById('sidebar');
-            if (sidebar.classList.contains('show') && !sidebar.contains(event.target) && !event.target.closest('.view-topics-btn')) {
+            if (sidebar.classList.contains('show') && !sidebar.contains(event.target) && event.target.id !== 'search-input') {
                 sidebar.classList.remove('show');
             }
         });
+
     </script>
 
 
