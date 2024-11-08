@@ -61,40 +61,46 @@
             window.history.back();
         }
 
-        document.getElementById("downloadPdfBtn").addEventListener("click", () => {
+      document.getElementById("downloadPdfBtn").addEventListener("click", () => {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
 
-            // Get the title for the PDF filename
+            // Capture the title of the PDF
             const pdfTitle = document.getElementById("summary-title").innerText.trim();
 
-            // Exclude the header and download button
+            // Clone the content to capture and hide unnecessary elements
             const contentToCapture = document.body.cloneNode(true);
-
-            // Remove the header and button from the cloned content
             contentToCapture.querySelector("header").remove();
             contentToCapture.querySelector("#downloadPdfBtn").remove();
 
-            // Create a container to render content for pdf
-            const container = document.createElement("div");
-            container.appendChild(contentToCapture);
+            // Temporarily set summary container's overflow to 'visible' and remove height limit
+            const summaryContainer = contentToCapture.querySelector(".summary-container");
+            summaryContainer.style.overflow = "visible";
+            summaryContainer.style.height = "auto";
 
+            // Wrap the content in a container for easier capture
+            const container = document.createElement("div");
+            container.style.width = "210mm"; // A4 width
+            container.style.padding = "20px"; // Padding for aesthetics
+            container.appendChild(contentToCapture);
             document.body.appendChild(container);
 
-            // Use html2canvas to capture the content
+            // Use html2canvas to render the container content as a canvas
             html2canvas(container, { scale: 2 }).then(canvas => {
                 const imgData = canvas.toDataURL("image/png");
-                const imgWidth = 190; // Width of the image in the PDF
-                const pageHeight = 297; // A4 page height in mm
+                const imgWidth = 190; // Fit image within A4 page width
+                const pageHeight = 297; // A4 height in mm
                 const imgHeight = (canvas.height * imgWidth) / canvas.width;
                 let heightLeft = imgHeight;
                 let position = 0;
 
-                // Add image to PDF, and handle multi-page content
+                // Loop through and add pages if content overflows
                 while (heightLeft > 0) {
                     doc.addImage(imgData, "PNG", 10, position, imgWidth, imgHeight);
                     heightLeft -= pageHeight;
                     position -= pageHeight;
+
+                    // Add new page if content still remains
                     if (heightLeft > 0) {
                         doc.addPage();
                     }
@@ -103,10 +109,11 @@
                 // Save the PDF with the summary title as the filename
                 doc.save(`${pdfTitle}.pdf`);
 
-                // Remove the temporary container
+                // Clean up the temporary container
                 container.remove();
             });
         });
+
     </script>
     <script src="script.js"></script>
 </body>
