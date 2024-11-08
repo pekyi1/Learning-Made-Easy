@@ -584,4 +584,13 @@ h6 {
     .card .card-content-container {
         transform: translateY(-40px);
     }
+        .badge-text {
+            font-size: 1.5rem;
+        }
+        .display-4{
+            font-size: 4rem;
+        }
+        .fs-5{
+            font-size: 1.4rem !important;
+        }
 }
