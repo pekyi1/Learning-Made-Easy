@@ -1,0 +1,73 @@
+ body {
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+ }
+
+ .summary-container {
+     width: 80%;
+     background-color: #ffffff;
+     padding: 25px;
+     border-radius: 8px;
+     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
+     overflow-y: auto;
+     max-height: 80vh;
+     /* Limits height to create a scrollable container */
+ }
+
+ #summary-title {
+     color: #2c3e50;
+     margin: 20px 0;
+     font-size: 4.5rem;
+     text-align: center;
+ }
+
+ #summary-content {
+     color: #4d4d4d;
+     line-height: 1.6;
+     margin-bottom: 16px;
+     font-size: 1.4em;
+     font-weight: 400;
+ }
+
+ /* Table of contents styling (optional) */
+ .toc {
+     background-color: #f0f0f0;
+     padding: 10px;
+     border-radius: 4px;
+     margin-bottom: 20px;
+     font-size: 0.9em;
+ }
+
+ .toc h4 {
+     font-weight: bold;
+     color: #2c3e50;
+ }
+
+ .toc ul {
+     list-style: none;
+     padding-left: 0;
+ }
+
+ .toc ul li {
+     margin: 8px 0;
+ }
+
+ .toc ul li a {
+     color: #2c665d;
+     text-decoration: none;
+ }
+
+ /* Animation for each line */
+ #summary-content span {
+     display: block;
+     opacity: 0;
+     transform: translateY(20px);
+     transition: opacity 0.5s ease, transform 0.5s ease;
+ }
+
+ #summary-content span.show {
+     opacity: 1;
+     transform: translateY(0);
+ }

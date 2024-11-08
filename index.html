@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Document</title>
+</head>
+
+<body>
+    <header class="header">
+        <div class="header-left">
+            <div class="header__menu-btn">
+                <span class="header__menu-btn__icon">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </span>
+            </div>
+            <a href="#" class="header__logo">
+                <h1>LearningMadeEasy</h1>
+            </a>
+        </div>
+        <div class="header-middle">
+            <span class="header__search--icon"><svg stroke="currentColor" fill="currentColor" stroke-width="0"
+                    viewBox="0 0 16 16" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z">
+                    </path>
+                </svg>
+            </span>
+            <input type="text" placeholder="Search for subjects or topics">
+        </div>
+        <div class="header-right">
+            <i class='bx bx-phone-call'></i>
+            <p>+233 555840605</p>
+        </div>
+    </header>
+    <section class="home-section" id="home">
+        <div class="home-content">
+            <div class="badge-text text-uppercase">Empowering Minds, One Summary at a Time.</div>
+            <h1 class="display-4 mb-4 text-capitalize">Unlock Knowledge, Transform Lives.</h1>
+            <p class="text-muted mb-5 fs-5">Providing easy access to book summaries for students who need them the most.
+                Empowering education, anywhere and anytime.</p>
+            <div class="home-buttons">
+                <button>Explore Now</button>
+            </div>
+        </div>
+        <div class="home-img"><img src="images/home image 1.png" alt=""></div>
+    </section>
+    <section class="books-gallery">
+        <div class="section-title-center text-center"><span>Books Gallery</span>
+            <h2 class="display-6">Explore subjects</h2>
+            <div class="section-divider divider-triangle"></div>
+        </div>
+    <div class="card-section">
+        <!-- Card 1 -->
+        <div class="card">
+            <div class="card-img">
+                <img src="images/mathematics.jpg" alt="Subject Image">
+            </div>
+            <div class="card-content-container">
+                <h3 class="subject-title">Mathematics</h3>
+                <p class="subject-description">Explore Algebra, Geometry, and Calculus topics.</p>
+            </div>
+            <button class="view-topics-btn" onclick="toggleSidebar('Mathematics')">View Topics</button>
+        </div>
+    
+        <!-- Card 2 -->
+        <div class="card">
+            <div class="card-img">
+                <img src="images/Science.jpg" alt="Subject Image">
+            </div>
+            <div class="card-content-container">
+                <h3 class="subject-title">Science</h3>
+                <p class="subject-description">Learn Physics, Chemistry, and Biology.</p>
+            </div>
+            <button class="view-topics-btn" onclick="toggleSidebar('Science')">View Topics</button>
+        </div>
+    
+        <!-- Card 3 -->
+        <div class="card">
+            <div class="card-img">
+                <img src="images/Social Studies.jpg" alt="Subject Image">
+            </div>
+            <div class="card-content-container">
+                <h3 class="subject-title">Social Studies</h3>
+                <p class="subject-description">Dive into Poetry, Drama, and Classic Novels.</p>
+            </div>
+            <button class="view-topics-btn" onclick="toggleSidebar('Literature')">View Topics</button>
+        </div>
+    </div>
+    
+    <!-- Sidebar for topics -->
+    <div class="sidebar" id="sidebar">
+        <span class="close-sidebar" onclick="toggleSidebar()">✖</span>
+        <h4 id="sidebar-title">Topics</h4>
+        <ul class="topic-list" id="sidebar-topics">
+            <!-- Placeholder for topics that will be updated dynamically -->
+        </ul>
+    </div>
+    </section>
+    <a href="#home" class="back-to-home"><i class='bx bx-up-arrow-alt'></i></a>
+    <script src="script.js"></script>
+
+
+</body>
+
+</html>

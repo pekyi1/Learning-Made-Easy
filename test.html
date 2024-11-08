@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summary Page</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px;
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+        }
+
+        .summary-container {
+            max-width: 700px;
+            width: 90%;
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        #summary-text {
+            line-height: 1.6;
+            color: #555;
+        }
+
+        /* Animation for each line */
+        .animated-line span {
+            display: block;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .animated-line span.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="summary-container">
+        <h2>Topic Summary</h2>
+        <p id="summary-text" class="animated-line">
+            This is the first line of your summary content. It will appear as you scroll down.
+            Each line will appear with a smooth animation effect.
+            This helps in keeping the reader engaged.
+            You can add as much content as needed.
+        </p>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const summaryText = document.getElementById("summary-text");
+            const lines = summaryText.innerText.split(". "); // Split by sentences or line breaks
+            summaryText.innerText = ""; // Clear original text
+
+            lines.forEach((line, index) => {
+                const span = document.createElement("span");
+                span.textContent = line + (index < lines.length - 1 ? ". " : ""); // Add a period back if not last line
+                span.style.transitionDelay = `${index * 0.1}s`; // Delay for sequential animation
+                summaryText.appendChild(span);
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("show");
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            document.querySelectorAll("#summary-text span").forEach(span => {
+                observer.observe(span);
+            });
+        });
+    </script>
+</body>
+
+</html>

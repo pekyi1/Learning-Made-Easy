@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summary</title>
+    <link rel="stylesheet" href="summary.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <header class="header">
+        <div class="header-left">
+            <div class="header__menu-btn" onclick="navigateBack()">
+                <i class='bx bx-arrow-back'></i>
+            </div>
+            <a href="#" class="header__logo">
+                <h1>LearningMadeEasy</h1>
+            </a>
+        </div>
+        <div class="header-middle">
+            <span class="header__search--icon"><svg stroke="currentColor" fill="currentColor" stroke-width="0"
+                    viewBox="0 0 16 16" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z">
+                    </path>
+                </svg>
+            </span>
+            <input type="text" placeholder="Search for subjects or topics">
+        </div>
+        <div class="header-right">
+            <i class='bx bx-phone-call'></i>
+            <p>+233 555840605</p>
+        </div>
+    </header>
+    <h2 id="summary-title">Topic Summary</h2>
+    <div class="summary-container">
+        <p id="summary-content">Loading...</p>
+    </div>
+
+    <script>
+        // Get topic from URL query parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const topic = urlParams.get('topic');
+
+        // Topic summaries
+        const summaries = {
+            'Algebra': 'Algebra is a branch of mathematics dealing with symbols and the rules for manipulating those symbols.',
+            'Geometry': 'Geometry is concerned with the properties and relations of points, lines, surfaces, and solids.',
+            'Calculus': 'Calculus is the mathematical study of continuous change, dealing with derivatives and integrals.',
+            'Physics': 'Physics is the natural science that studies matter, its motion, and behavior through space and time. Physics is the natural science that studies matter, its motion, and behavior through space and time. Physics is the natural science that studies matter, its motion, and behavior through space and time. Physics is the natural science that studies matter, its motion, and behavior through space and time. Physics is the natural science that studies matter, its motion, and behavior through space and time. Physics is the natural science that studies matter, its motion, and behavior through space and time. Physics is the natural science that studies matter, its motion, and behavior through space and time. Physics is the natural science that studies matter, its motion, and behavior through space and time. Physics is the natural science that studies matter, its motion, and behavior through space and time. Physics is the natural science that studies matter, its motion, and behavior through space and time. Physics is the natural science that studies matter, its motion, and behavior through space and time. Physics is the natural science that studies matter, its motion, and behavior through space and time. Physics is the natural science that studies matter, its motion, and behavior through space and time. Physics is the natural science that studies matter, its motion, and behavior through space and time. Physics is the natural science that studies matter, its motion, and behavior through space and time. Physics is the natural science that studies matter, its motion, and behavior through space and time. Physics is the natural science that studies matter, its motion, and behavior through space and time. Physics is the natural science that studies matter, its motion, and behavior through space and time.',
+            'Chemistry': 'Chemistry is the study of substances, their properties, and how they interact, combine, and change.',
+            'Biology': 'Biology is the scientific study of life and living organisms.',
+            'Poetry': 'Poetry is a form of literary art that uses aesthetic and rhythmic qualities of language.',
+            'Drama': 'Drama is a mode of fictional representation through dialogue and performance.',
+            'Classic Novels': 'Classic novels are works of fiction that have stood the test of time and are of recognized artistic quality.'
+        };
+
+        // Display the summary based on the selected topic
+        const summaryTitle = document.getElementById('summary-title');
+        const summaryContent = document.getElementById('summary-content');
+
+        if (topic && summaries[topic]) {
+            summaryTitle.textContent = `${topic} Summary`;
+            summaryContent.textContent = summaries[topic];
+        } else {
+            summaryTitle.textContent = 'Topic Not Found';
+            summaryContent.textContent = 'The topic you selected does not have a summary available.';
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const summaryText = document.getElementById("summary-content");
+            const lines = summaryText.innerText.split(". "); // Split by sentences or line breaks
+            summaryText.innerText = ""; // Clear original text
+
+            lines.forEach((line, index) => {
+                const span = document.createElement("span");
+                span.textContent = line + (index < lines.length - 1 ? ". " : ""); // Add a period back if not last line
+                span.style.transitionDelay = `${index * 0.1}s`; // Delay for sequential animation
+                summaryText.appendChild(span);
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("show");
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            document.querySelectorAll("#summary-content span").forEach(span => {
+                observer.observe(span);
+            });
+        });
+        function navigateBack() {
+                window.history.back();
+            }
+    </script>
+
+</body>
+
+</html>
