@@ -35,10 +35,12 @@
             <p>+233 555840605</p>
         </div>
     </header>
+
     <h2 id="summary-title">Topic Summary</h2>
     <div class="summary-container">
         <p id="summary-text">Loading...</p>
     </div>
+
     <!-- Sidebar for topics -->
     <div class="sidebar" id="sidebar">
         <span class="close-sidebar" onclick="toggleSidebar()">✖</span>
@@ -48,71 +50,63 @@
         </ul>
     </div>
 
-    <!-- <script>
-        // Get topic from URL query parameter
-        const urlParams = new URLSearchParams(window.location.search);
-        const topic = urlParams.get('topic');
+    <!-- Button to download the PDF -->
+    <button class="download-pdf" id="downloadPdfBtn">Download PDF<i class='bx bx-file'></i></button>
 
-        // Topic summaries
-        const summaries = {
-            'Algebra': 'Algebra is a branch of mathematics dealing with symbols and the rules for manipulating those symbols.',
-            'Geometry': 'Geometry is concerned with the properties and relations of points, lines, surfaces, and solids.',
-            'Calculus': 'Calculus is the mathematical study of continuous change, dealing with derivatives and integrals.',
-            'Physics': 'Physics is the natural science that studies matter, its motion, and behavior through space and time. Physics is the natural science that studies matter, its motion, and behavior through space and time. Physics is the natural science that studies matter, its motion, and behavior through space and time. Physics is the natural science that studies matter, its motion, and behavior through space and time. Physics is the natural science that studies matter, its motion, and behavior through space and time. Physics is the natural science that studies matter, its motion, and behavior through space and time. Physics is the natural science that studies matter, its motion, and behavior through space and time. Physics is the natural science that studies matter, its motion, and behavior through space and time. Physics is the natural science that studies matter, its motion, and behavior through space and time. Physics is the natural science that studies matter, its motion, and behavior through space and time. Physics is the natural science that studies matter, its motion, and behavior through space and time. Physics is the natural science that studies matter, its motion, and behavior through space and time. Physics is the natural science that studies matter, its motion, and behavior through space and time. Physics is the natural science that studies matter, its motion, and behavior through space and time. Physics is the natural science that studies matter, its motion, and behavior through space and time. Physics is the natural science that studies matter, its motion, and behavior through space and time. Physics is the natural science that studies matter, its motion, and behavior through space and time. Physics is the natural science that studies matter, its motion, and behavior through space and time.',
-            'Chemistry': 'Chemistry is the study of substances, their properties, and how they interact, combine, and change.',
-            'Biology': 'Biology is the scientific study of life and living organisms.',
-            'Poetry': 'Poetry is a form of literary art that uses aesthetic and rhythmic qualities of language.',
-            'Drama': 'Drama is a mode of fictional representation through dialogue and performance.',
-            'Classic Novels': 'Classic novels are works of fiction that have stood the test of time and are of recognized artistic quality.'
-        };
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 
-        // Display the summary based on the selected topic
-        const summaryTitle = document.getElementById('summary-title');
-        const summaryContent = document.getElementById('summary-content');
-
-        if (topic && summaries[topic]) {
-            summaryTitle.textContent = `${topic} Summary`;
-            summaryContent.textContent = summaries[topic];
-        } else {
-            summaryTitle.textContent = 'Topic Not Found';
-            summaryContent.textContent = 'The topic you selected does not have a summary available.';
+    <script>
+        function navigateBack() {
+            window.history.back();
         }
 
-        document.addEventListener("DOMContentLoaded", () => {
-            const summaryText = document.getElementById("summary-content");
-            const lines = summaryText.innerText.split(". "); // Split by sentences or line breaks
-            summaryText.innerText = ""; // Clear original text
+        document.getElementById("downloadPdfBtn").addEventListener("click", () => {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
 
-            lines.forEach((line, index) => {
-                const span = document.createElement("span");
-                span.textContent = line + (index < lines.length - 1 ? ". " : ""); // Add a period back if not last line
-                span.style.transitionDelay = `${index * 0.1}s`; // Delay for sequential animation
-                summaryText.appendChild(span);
-            });
+            // Get the title for the PDF filename
+            const pdfTitle = document.getElementById("summary-title").innerText.trim();
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add("show");
+            // Exclude the header and download button
+            const contentToCapture = document.body.cloneNode(true);
+
+            // Remove the header and button from the cloned content
+            contentToCapture.querySelector("header").remove();
+            contentToCapture.querySelector("#downloadPdfBtn").remove();
+
+            // Create a container to render content for pdf
+            const container = document.createElement("div");
+            container.appendChild(contentToCapture);
+
+            document.body.appendChild(container);
+
+            // Use html2canvas to capture the content
+            html2canvas(container, { scale: 2 }).then(canvas => {
+                const imgData = canvas.toDataURL("image/png");
+                const imgWidth = 190; // Width of the image in the PDF
+                const pageHeight = 297; // A4 page height in mm
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                let heightLeft = imgHeight;
+                let position = 0;
+
+                // Add image to PDF, and handle multi-page content
+                while (heightLeft > 0) {
+                    doc.addImage(imgData, "PNG", 10, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+                    position -= pageHeight;
+                    if (heightLeft > 0) {
+                        doc.addPage();
                     }
-                });
-            }, {
-                threshold: 0.1
-            });
+                }
 
-            document.querySelectorAll("#summary-content span").forEach(span => {
-                observer.observe(span);
+                // Save the PDF with the summary title as the filename
+                doc.save(`${pdfTitle}.pdf`);
+
+                // Remove the temporary container
+                container.remove();
             });
         });
-        function navigateBack() {
-                window.history.back();
-            }
-    </script> -->
-    
-    <script>
-         function navigateBack() {
-                window.history.back();
-            }
     </script>
     <script src="script.js"></script>
 </body>
