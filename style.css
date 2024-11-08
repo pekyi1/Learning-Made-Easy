@@ -593,4 +593,7 @@ h6 {
         .fs-5{
             font-size: 1.4rem !important;
         }
+        .back-to-home{
+            right: 20px;
+        }
 }
