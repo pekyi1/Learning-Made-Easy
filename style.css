@@ -456,26 +456,28 @@ h6 {
     /* Show the sidebar */
 }
 
-/* Scroll bar styling */
+/* Initial hidden scrollbar */
+.sidebar.hide-scrollbar::-webkit-scrollbar {
+    width: 0;
+}
+
+/* Scrollbar styling */
 .sidebar::-webkit-scrollbar {
     width: 10px;
-    /* Width of the scrollbar */
+    transition: .5s ease;
+    /* Show width */
 }
 
-/* Style the scrollbar track (background) */
+/* Style the scrollbar track */
 .sidebar::-webkit-scrollbar-track {
     background: #f1f1f1;
-    /* Color of the track */
 }
 
-/* Style the scrollbar thumb (the draggable part) */
+/* Style the scrollbar thumb */
 .sidebar::-webkit-scrollbar-thumb {
     background-color: #5a8f7b;
-    /* Color of the scrollbar */
     border-radius: 10px;
-    /* Rounded corners */
     border: 2px solid #f1f1f1;
-    /* Space around the scrollbar */
 }
 
 .sidebar h4 {

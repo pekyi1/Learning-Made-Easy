@@ -218,6 +218,28 @@
         });
 
     </script>
+    <script>
+        // Select the sidebar element
+            const sidebar = document.querySelector('.sidebar');
+
+            // Function to show scrollbar on scroll
+            function handleScroll() {
+                sidebar.classList.remove('hide-scrollbar');
+
+                // Set a timer to re-hide the scrollbar after scrolling stops
+                clearTimeout(sidebar.hideScrollTimeout);
+                sidebar.hideScrollTimeout = setTimeout(() => {
+                    sidebar.classList.add('hide-scrollbar');
+                }, 500); // Adjust timeout (500ms) as needed
+            }
+
+            // Attach the scroll event listener to show/hide scrollbar
+            sidebar.addEventListener('scroll', handleScroll);
+
+            // Initially hide the scrollbar
+            sidebar.classList.add('hide-scrollbar');
+
+    </script>
 
 
 </body>
