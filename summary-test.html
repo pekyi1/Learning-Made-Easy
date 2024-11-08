@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summary</title>
+    <style>
+        .summary-container {
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        #summary-title {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        #summary-text p {
+            line-height: 1.6;
+            color: #34495e;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            margin-bottom: 10px;
+        }
+
+        #summary-text p.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .subtopic {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2 id="summary-title">Topic Summary</h2>
+    <div class="summary-container">
+        <div id="summary-text">Loading...</div>
+    </div>
+
+    <script>
+        const summaries = {
+            'Angles': {
+                title: "Angles",
+                content: [
+                    "An angle is the figure formed by two rays meeting at a common endpoint.",
+                    "Types of Angles",
+                    "Acute angles are less than 90 degrees, while obtuse angles are more than 90 degrees.",
+                    "Applications of Angles",
+                    "Angles play an important role in fields such as architecture and engineering."
+                ],
+                subtopics: ["Types of Angles", "Applications of Angles"]
+            },
+            'Trigonometry': {
+                title: "Trigonometry",
+                content: [
+                    "Trigonometry studies the relationships between side lengths and angles in triangles.",
+                    "Basic Trigonometric Functions",
+                    "The sine, cosine, and tangent functions are used to calculate unknowns in right triangles."
+                ],
+                subtopics: ["Basic Trigonometric Functions"]
+            }
+            // Additional topics can be added here
+        };
+
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        function loadSummary() {
+            const topic = getQueryParam("topic");
+            const summary = summaries[topic];
+
+            const titleElement = document.getElementById("summary-title");
+            const textElement = document.getElementById("summary-text");
+
+            if (summary) {
+                titleElement.textContent = summary.title;
+                textElement.innerHTML = ''; // Clear loading text
+
+                // Display each paragraph with an animation delay
+                summary.content.forEach((paragraph, index) => {
+                    const pElement = document.createElement("p");
+                    if (summary.subtopics.includes(paragraph)) {
+                        pElement.innerHTML = `<span class="subtopic">${paragraph}</span>`;
+                    } else {
+                        pElement.textContent = paragraph;
+                    }
+                    textElement.appendChild(pElement);
+
+                    // Add animation with delay for each paragraph
+                    setTimeout(() => {
+                        pElement.classList.add("visible");
+                    }, index * 500); // 500ms delay between each paragraph
+                });
+            } else {
+                titleElement.textContent = "Summary not found";
+                textElement.textContent = "The topic you are looking for does not exist.";
+            }
+        }
+
+        // Load the summary when the page loads
+        window.onload = loadSummary;
+    </script>
+
+</body>
+
+</html>

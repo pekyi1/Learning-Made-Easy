@@ -4,93 +4,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Summary Page</title>
+    <title>Subjects</title>
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 20px;
-            background-color: #f5f5f5;
+        /* Basic styling */
+        body,
+        html {
             font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        .summary-container {
-            max-width: 700px;
-            width: 90%;
-            background-color: #ffffff;
-            padding: 25px;
+        .card-section {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            justify-content: center;
+            margin-top: 50px;
+        }
+
+        .card {
+            width: 200px;
+            padding: 20px;
+            border: 1px solid #ddd;
             border-radius: 8px;
-            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
-            max-height: 80vh;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .view-topics-btn {
+            margin-top: 10px;
+            cursor: pointer;
+            background-color: #2c665d;
+            color: #fff;
+            border: none;
+            padding: 8px;
+            border-radius: 4px;
+        }
+
+        /* Sidebar styling */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -250px;
+            /* Hidden initially */
+            width: 250px;
+            height: 100vh;
+            background-color: #f9f9f9;
+            box-shadow: -3px 0 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            transition: right 0.3s ease;
             overflow-y: auto;
         }
 
-        h2 {
+        .sidebar.show {
+            right: 0;
+        }
+
+        .sidebar h4 {
+            margin-bottom: 15px;
             color: #2c3e50;
-            margin-bottom: 20px;
-            font-size: 1.8em;
         }
 
-        #summary-text {
-            line-height: 1.6;
-            color: #555;
+        .sidebar ul {
+            list-style-type: none;
+            padding-left: 0;
         }
 
-        /* Animation for each line */
-        .animated-line span {
-            display: block;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
+        .sidebar ul li {
+            margin: 10px 0;
         }
 
-        .animated-line span.show {
-            opacity: 1;
-            transform: translateY(0);
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #2c665d;
+        }
+
+        .close-sidebar {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.2em;
+            cursor: pointer;
+            color: #7f8c8d;
+        }
+
+        /* Summary container styling */
+        .summary-content {
+            padding: 20px;
+            margin-top: 20px;
+            max-width: 600px;
+        }
+
+        .summary-title {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .subtopic {
+            font-weight: bold;
+            color: #2c3e50;
         }
     </style>
 </head>
 
 <body>
-    <div class="summary-container">
-        <h2>Topic Summary</h2>
-        <p id="summary-text" class="animated-line">
-            This is the first line of your summary content. It will appear as you scroll down.
-            Each line will appear with a smooth animation effect.
-            This helps in keeping the reader engaged.
-            You can add as much content as needed.
-        </p>
+
+    <div class="card-section">
+        <div class="card">
+            <h3>Mathematics</h3>
+            <button class="view-topics-btn" onclick="toggleSidebar('Mathematics')">View Topics</button>
+        </div>
+        <div class="card">
+            <h3>Science</h3>
+            <button class="view-topics-btn" onclick="toggleSidebar('Science')">View Topics</button>
+        </div>
+        <div class="card">
+            <h3>Literature</h3>
+            <button class="view-topics-btn" onclick="toggleSidebar('Literature')">View Topics</button>
+        </div>
     </div>
 
+    <div class="sidebar" id="sidebar">
+        <span class="close-sidebar" onclick="toggleSidebar()">✖</span>
+        <h4 id="sidebar-title"></h4>
+        <ul id="sidebar-topics" class="topic-list"></ul>
+    </div>
+
+    <div class="summary-content" id="summary-container"></div>
+
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const summaryText = document.getElementById("summary-text");
-            const lines = summaryText.innerText.split(". "); // Split by sentences or line breaks
-            summaryText.innerText = ""; // Clear original text
+        const topics = {
+                'Mathematics': ['Angles', 'Trigonometry', 'Algebra', 'Calculus'],
+                'Science': ['Physics', 'Chemistry', 'Biology'],
+                'Literature': ['Poetry', 'Drama', 'Classic Novels']
+            };
 
-            lines.forEach((line, index) => {
-                const span = document.createElement("span");
-                span.textContent = line + (index < lines.length - 1 ? ". " : ""); // Add a period back if not last line
-                span.style.transitionDelay = `${index * 0.1}s`; // Delay for sequential animation
-                summaryText.appendChild(span);
-            });
+            function toggleSidebar(subject = null) {
+                const sidebar = document.getElementById('sidebar');
+                const sidebarTitle = document.getElementById('sidebar-title');
+                const sidebarTopics = document.getElementById('sidebar-topics');
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add("show");
-                    }
-                });
-            }, {
-                threshold: 0.1
-            });
+                if (subject) {
+                    sidebarTitle.textContent = `Topics in ${subject}`;
+                    sidebarTopics.innerHTML = topics[subject]
+                        .map(topic => `<li><a href="summary-test.html?topic=${encodeURIComponent(topic)}">${topic}</a></li>`)
+                        .join('');
+                }
 
-            document.querySelectorAll("#summary-text span").forEach(span => {
-                observer.observe(span);
+                sidebar.classList.toggle('show');
+            }
+
+            document.addEventListener('click', function (event) {
+                const sidebar = document.getElementById('sidebar');
+                if (sidebar.classList.contains('show') && !sidebar.contains(event.target) && !event.target.closest('.view-topics-btn')) {
+                    sidebar.classList.remove('show');
+                }
             });
-        });
     </script>
+
 </body>
 
 </html>

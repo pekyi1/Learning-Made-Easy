@@ -13,22 +13,36 @@
      box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
      overflow-y: auto;
      max-height: 80vh;
+     text-align: center;
      /* Limits height to create a scrollable container */
  }
 
  #summary-title {
      color: #2c3e50;
      margin: 20px 0;
-     font-size: 4.5rem;
+     font-size: 4.5rem !important;
      text-align: center;
  }
 
- #summary-content {
+ .subtopic {
+     font-weight: bold;
+     color: #2c3e50;
+ }
+
+ #summary-text p {
      color: #4d4d4d;
      line-height: 1.6;
      margin-bottom: 16px;
-     font-size: 1.4em;
+     font-size: 1.4em !important;
      font-weight: 400;
+     opacity: 0;
+     transform: translateY(20px);
+     transition: opacity 0.5s ease, transform 0.5s ease;
+ }
+
+ #summary-text p.visible {
+     opacity: 1;
+     transform: translateY(0);
  }
 
  /* Table of contents styling (optional) */
@@ -61,6 +75,7 @@
 
  /* Animation for each line */
  #summary-content span {
+     font-family: Arial, Helvetica, sans-serif !important;
      display: block;
      opacity: 0;
      transform: translateY(20px);

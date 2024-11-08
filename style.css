@@ -479,6 +479,10 @@ h6 {
     font-weight: 500;
     text-decoration: underline;
 }
+.sidebar h4 span{
+    font-weight: 500;
+}
+
 
 .topic-list {
     /* list-style-type: none; */

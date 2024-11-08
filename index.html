@@ -45,65 +45,207 @@
             <p class="text-muted mb-5 fs-5">Providing easy access to book summaries for students who need them the most.
                 Empowering education, anywhere and anytime.</p>
             <div class="home-buttons">
-                <button>Explore Now</button>
+                <a href="#booksgallery"><button>Explore Now</button></a>
             </div>
         </div>
         <div class="home-img"><img src="images/home image 1.png" alt=""></div>
     </section>
-    <section class="books-gallery">
+    <section class="books-gallery" id="booksgallery">
         <div class="section-title-center text-center"><span>Books Gallery</span>
             <h2 class="display-6">Explore subjects</h2>
             <div class="section-divider divider-triangle"></div>
         </div>
-    <div class="card-section">
-        <!-- Card 1 -->
-        <div class="card">
-            <div class="card-img">
-                <img src="images/mathematics.jpg" alt="Subject Image">
+        <div class="card-section">
+            <!-- Card 1 -->
+            <div class="card">
+                <div class="card-img">
+                    <img src="images/mathematics.jpg" alt="Subject Image">
+                </div>
+                <div class="card-content-container">
+                    <h3 class="subject-title">Core Mathematics</h3>
+                    <p class="subject-description">Explore Algebra, Geometry, and Calculus topics.</p>
+                </div>
+                <button class="view-topics-btn" onclick="toggleSidebar('Mathematics')">View Topics</button>
             </div>
-            <div class="card-content-container">
-                <h3 class="subject-title">Mathematics</h3>
-                <p class="subject-description">Explore Algebra, Geometry, and Calculus topics.</p>
+
+            <!-- Card 2 -->
+            <div class="card">
+                <div class="card-img">
+                    <img src="images/Science.jpg" alt="Subject Image">
+                </div>
+                <div class="card-content-container">
+                    <h3 class="subject-title">Science</h3>
+                    <p class="subject-description">Learn Physics, Chemistry, and Biology.</p>
+                </div>
+                <button class="view-topics-btn" onclick="toggleSidebar('Science')">View Topics</button>
             </div>
-            <button class="view-topics-btn" onclick="toggleSidebar('Mathematics')">View Topics</button>
+
+            <!-- Card 3 -->
+            <div class="card">
+                <div class="card-img">
+                    <img src="images/Agriculture .jpg" alt="Subject Image">
+                </div>
+                <div class="card-content-container">
+                    <h3 class="subject-title">General Agriculture</h3>
+                    <p class="subject-description">Dive into Poetry, Drama, and Classic Novels.</p>
+                </div>
+                <button class="view-topics-btn" onclick="toggleSidebar('Agric')">View Topics</button>
+            </div>
+            <!-- Card 4 -->
+            <div class="card">
+                <div class="card-img">
+                    <img src="images/Business Management.jpg" alt="Subject Image">
+                </div>
+                <div class="card-content-container">
+                    <h3 class="subject-title">Business Management</h3>
+                    <p class="subject-description">Dive into Poetry, Drama, and Classic Novels.</p>
+                </div>
+                <button class="view-topics-btn" onclick="toggleSidebar('Business')">View Topics</button>
+            </div>
+            <!-- Card 3 -->
+            <div class="card">
+
+            </div>
+            <!-- Card 3 -->
+            <div class="card">
+
+            </div>
         </div>
-    
-        <!-- Card 2 -->
-        <div class="card">
-            <div class="card-img">
-                <img src="images/Science.jpg" alt="Subject Image">
-            </div>
-            <div class="card-content-container">
-                <h3 class="subject-title">Science</h3>
-                <p class="subject-description">Learn Physics, Chemistry, and Biology.</p>
-            </div>
-            <button class="view-topics-btn" onclick="toggleSidebar('Science')">View Topics</button>
+
+        <!-- Sidebar for topics -->
+        <div class="sidebar" id="sidebar">
+            <span class="close-sidebar" onclick="toggleSidebar()">✖</span>
+            <h4 id="sidebar-title">Topics</h4>
+            <ul class="topic-list" id="sidebar-topics">
+                <!-- Placeholder for topics that will be updated dynamically -->
+            </ul>
         </div>
-    
-        <!-- Card 3 -->
-        <div class="card">
-            <div class="card-img">
-                <img src="images/Social Studies.jpg" alt="Subject Image">
-            </div>
-            <div class="card-content-container">
-                <h3 class="subject-title">Social Studies</h3>
-                <p class="subject-description">Dive into Poetry, Drama, and Classic Novels.</p>
-            </div>
-            <button class="view-topics-btn" onclick="toggleSidebar('Literature')">View Topics</button>
-        </div>
-    </div>
-    
-    <!-- Sidebar for topics -->
-    <div class="sidebar" id="sidebar">
-        <span class="close-sidebar" onclick="toggleSidebar()">✖</span>
-        <h4 id="sidebar-title">Topics</h4>
-        <ul class="topic-list" id="sidebar-topics">
-            <!-- Placeholder for topics that will be updated dynamically -->
-        </ul>
-    </div>
     </section>
     <a href="#home" class="back-to-home"><i class='bx bx-up-arrow-alt'></i></a>
     <script src="script.js"></script>
+    <script>
+        const topics = {
+            'Mathematics': ['Angles',
+                'Trigonometry',
+                'Sequence & Series',
+                'Circle Theorem',
+                'Sets',
+                'Surds',
+                'Relations & Functions',
+                'Mensuration',
+                'Logical Reasoning',
+                'Linear Equations & Inequalities',
+                'Indices & Logarithm',
+                'Plane Geometry',
+                'Bearings & Vectors',
+                'Permutation & Combination',
+                'Calculus',
+                'Modulo Arithmetic',
+                'Algebra',
+                'Probability & Statistics',
+                'Number Systems',
+                'Variation',
+                'Matrices'],
+            'Science': ['Digestive System',
+                'Food and Nutrition',
+                'Skeletal System',
+                'Energy Transformation',
+                'Magnetism',
+                'Weather and Climate',
+                'Forces and Motion',
+                'Acids, Bases and Salts',
+                'Measurements',
+                'Introduction to Integrated Science',
+                'Cell and Cell Division',
+                'Matter',
+                'Electrical Energy',
+                'Electronics',
+                'Solar Energy',
+                'Diffusion and Osmosis',
+                'Dentition in Humans',
+                'Reproduction and Growth in Plants',
+                'Atmosphere and Climate Change',
+                'Ecosystem',
+                'Infections and Diseases',
+                'Exploitation of Minerals',
+                'Rusting',
+                'Corrosion in Metals',
+                'Variation and Inheritance',
+                'Heat Energy',
+                'Light Energy',
+                'Organic and Inorganic Compounds',
+                'Crop Production',
+                'Life Cycle of Pests and Parasites',
+                'Endogenous Technology',
+                'Biodiversity',
+                'Work and Machines',
+                'Safety in the Community',
+                'Circulatory System',
+                'Hydrological Cycle',
+                'Soil Conservation',
+                'Water',
+                'Water Conservation',
+                'Air Movement',
+                'Nitrogen Cycle',
+                'Nuclear Energy'],
+            'Business': ['Corporate Governance',
+                'Human Resource Management',
+                'Leadership',
+                'Strategic Management',
+                'E-Commerce',
+                'Marketing',
+                'Pricing',
+                'Social Entrepreneurship',
+                'Sustainability',
+                'Sustainable Business Strategies',
+                'Advertising',
+                'Strategic Planning',
+                'Communication',
+                'Corporate Finance',
+                'Marketing and Consumer Behavior',
+                'Ethics and Social Responsibility',
+                'Innovation',
+                'Technology and Innovation',
+                'AI and Business Processes',
+                'Corporate Social Responsibility'
+            ],
+            'Agric': ['Agricultural Engineering',
+                'Sustainable Agriculture',
+                'Agricultural Extension',
+                'Horticulture',
+                'Agricultural Economics',
+                'Agricultural Law',
+                'Animal Science',
+                'Farm Business Management',
+                'Social Science',
+                'Crop Production',
+                'Animal Production',
+                'Introduction to Animal Mechanisation',
+                'Farm Power']
+        };
+
+        function toggleSidebar(subject = null) {
+            const sidebar = document.getElementById('sidebar');
+            const sidebarTitle = document.getElementById('sidebar-title');
+            const sidebarTopics = document.getElementById('sidebar-topics');
+
+            if (subject) {
+                sidebarTitle.textContent = `Topics in ${subject}`;
+                sidebarTopics.innerHTML = topics[subject]
+                    .map(topic => `<li><a href="summary.html?topic=${encodeURIComponent(topic)}">${topic}</a></li>`)
+                    .join('');
+            }
+
+            sidebar.classList.toggle('show');
+        }
+
+        document.addEventListener('click', function (event) {
+            const sidebar = document.getElementById('sidebar');
+            if (sidebar.classList.contains('show') && !sidebar.contains(event.target) && !event.target.closest('.view-topics-btn')) {
+                sidebar.classList.remove('show');
+            }
+        });
+    </script>
 
 
 </body>
