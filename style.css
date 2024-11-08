@@ -90,6 +90,10 @@ section {
     padding: 0;
     width: 90px;
 }
+.header__menu-btn img{
+    width: 100px;
+    margin-right: 20px;
+}
 
 .header__menu-btn i {
     color: #5a8f7b;
@@ -542,6 +546,10 @@ h6 {
     .header__logo h1 {
         display: none;
     }
+        .header__menu-btn img {
+            width: 80px;
+            margin-right: 15px;
+        }
 
     .header {
         padding: 0 10px;
@@ -550,6 +558,9 @@ h6 {
 
     .header-middle {
         width: 70%;
+    }
+    .header-middle input::placeholder{
+        font-size: 10px;
     }
 
     .header-right {
