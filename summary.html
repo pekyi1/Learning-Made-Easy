@@ -39,6 +39,14 @@
     <div class="summary-container">
         <p id="summary-text">Loading...</p>
     </div>
+    <!-- Sidebar for topics -->
+    <div class="sidebar" id="sidebar">
+        <span class="close-sidebar" onclick="toggleSidebar()">✖</span>
+        <h4 id="sidebar-title">Topics</h4>
+        <ul class="topic-list" id="sidebar-topics">
+            <!-- Placeholder for topics that will be updated dynamically -->
+        </ul>
+    </div>
 
     <!-- <script>
         // Get topic from URL query parameter
@@ -100,6 +108,7 @@
                 window.history.back();
             }
     </script> -->
+    
     <script>
          function navigateBack() {
                 window.history.back();

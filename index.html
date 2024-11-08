@@ -212,7 +212,7 @@
 
         document.addEventListener('click', function (event) {
             const sidebar = document.getElementById('sidebar');
-            if (sidebar.classList.contains('show') && !sidebar.contains(event.target) && event.target.id !== 'search-input') {
+            if (sidebar.classList.contains('show') && !sidebar.contains(event.target) && !event.target.closest('.view-topics-btn') && event.target.id !== 'search-input') {
                 sidebar.classList.remove('show');
             }
         });
